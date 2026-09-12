@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Baby :)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            padding: 20px 10px;
+            position: relative;
+            background: linear-gradient(to bottom, #090514 0%, #160a2c 40%, #241142 70%, #0d1b3e 100%);
+            color: #fff;
+        }
+
+        /* Night Ocean Background Canvas / SVG Elements */
+        .sky-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Glowing Moon */
+        .moon {
+            position: absolute;
+            top: 40px;
+            right: 8%;
+            width: 90px;
+            height: 90px;
+            background: radial-gradient(circle, #fffae6 0%, #fff3b3 60%, #ffd54f 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 35px #fff3b3, 0 0 70px rgba(255, 243, 179, 0.6), 0 0 100px rgba(186, 104, 200, 0.4);
+            animation: moonGlow 4s infinite alternate ease-in-out;
+        }
+
+        @keyframes moonGlow {
+            0% { box-shadow: 0 0 30px #fff3b3, 0 0 60px rgba(255, 243, 179, 0.5); }
+            100% { box-shadow: 0 0 45px #fff, 0 0 85px rgba(233, 30, 99, 0.5), 0 0 120px rgba(186, 104, 200, 0.7); }
+        }
+
+        /* Twinkling Stars */
+        .star {
+            position: absolute;
+            background-color: #ffffff;
+            border-radius: 50%;
+            animation: pulseStar infinite ease-in-out alternate;
+        }
+
+        @keyframes pulseStar {
+            0% { opacity: 0.1; transform: scale(0.7); }
+            100% { opacity: 1; transform: scale(1.3); box-shadow: 0 0 8px #fff; }
+        }
+
+        /* Ocean Waves Animation */
+        .ocean {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 180px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: repeat-x;
+            opacity: 0.7;
+        }
+
+        .wave1 {
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0 C150,90 350,-40 500,50 C650,140 900,10 1200,40 L1200,120 L0,120 Z' fill='%234a148c' opacity='0.5'%3E%3C/path%3E%3C/svg%3E");
+            animation: waveAnim 14s linear infinite;
+        }
+
+        .wave2 {
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,30 C200,100 450,10 700,70 C950,120 1050,20 1200,50 L1200,120 L0,120 Z' fill='%236a1b9a' opacity='0.4'%3E%3C/path%3E%3C/svg%3E");
+            animation: waveAnim 9s linear infinite reverse;
+            bottom: -10px;
+        }
+
+        .wave3 {
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,50 C150,20 350,80 600,30 C850,-20 1000,60 1200,30 L1200,120 L0,120 Z' fill='%23280654' opacity='0.8'%3E%3C/path%3E%3C/svg%3E");
+            animation: waveAnim 18s linear infinite;
+            bottom: -15px;
+        }
+
+        @keyframes waveAnim {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Container Card */
+        .wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 620px;
+            width: 100%;
+            margin-bottom: 60px;
+        }
+
+        /* Purple Music Player Box */
+        .music-card {
+            background: rgba(42, 16, 68, 0.75);
+            backdrop-filter: blur(15px);
+            padding: 18px 22px;
+            border-radius: 24px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(171, 71, 188, 0.25);
+            margin-bottom: 22px;
+            text-align: center;
+            border: 1px solid rgba(225, 190, 231, 0.25);
+            animation: fadeIn 1s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .music-title {
+            font-size: 0.95rem;
+            color: #e1bee7;
+            margin-bottom: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Audio Player Styling */
+        audio {
+            width: 100%;
+            height: 40px;
+            outline: none;
+            border-radius: 20px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+
+        /* Equalizer Animation Bars when music plays */
+        .eq-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 4px;
+            height: 20px;
+            margin-top: 10px;
+        }
+
+        .eq-bar {
+            width: 4px;
+            height: 4px;
+            background: #ab47bc;
+            border-radius: 2px;
+            transition: height 0.2s ease;
+        }
+
+        .music-playing .eq-bar {
+            animation: eqBounce 0.8s infinite alternate ease-in-out;
+        }
+
+        .music-playing .eq-bar:nth-child(1) { animation-delay: 0.1s; }
+        .music-playing .eq-bar:nth-child(2) { animation-delay: 0.3s; }
+        .music-playing .eq-bar:nth-child(3) { animation-delay: 0.5s; }
+        .music-playing .eq-bar:nth-child(4) { animation-delay: 0.2s; }
+        .music-playing .eq-bar:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes eqBounce {
+            0% { height: 4px; background: #ab47bc; }
+            100% { height: 20px; background: #ea80fc; box-shadow: 0 0 8px #ea80fc; }
+        }
+
+        /* Letter Wrapper & Card (Purple Theme) */
+        .letter-card {
+            background: rgba(30, 14, 50, 0.88);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 35px 28px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(156, 39, 176, 0.2);
+            border: 1px solid rgba(225, 190, 231, 0.3);
+            text-align: center;
+            display: none;
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        /* Initial Open Button Box */
+        .open-box {
+            background: rgba(30, 14, 50, 0.85);
+            backdrop-filter: blur(15px);
+            padding: 45px 25px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 25px rgba(171, 71, 188, 0.2);
+            border: 1px solid rgba(225, 190, 231, 0.25);
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .open-btn, .back-btn {
+            background: linear-gradient(135deg, #8e24aa, #ab47bc, #ce93d8);
+            background-size: 200% 200%;
+            color: white;
+            border: none;
+            padding: 14px 34px;
+            font-size: 1.05rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(142, 36, 170, 0.4);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .open-btn:hover, .back-btn:hover {
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 12px 30px rgba(171, 71, 188, 0.6);
+            background-position: right center;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #4a148c, #7b1fa2);
+            padding: 10px 24px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        /* Bear Containers */
+        .bear-container {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 15px auto;
+            animation: gentleSway 3s ease-in-out infinite;
+        }
+
+        .bear-bottom-container {
+            width: 170px;
+            height: 160px;
+            margin: 25px auto 10px auto;
+            animation: floatSmall 2.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatSmall {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+
+        @keyframes gentleSway {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        /* Tear Drop Animation */
+        .tear {
+            animation: tearFall 1.8s infinite ease-in;
+            opacity: 0;
+        }
+
+        @keyframes tearFall {
+            0% { transform: translateY(0); opacity: 1; }
+            70% { opacity: 1; }
+            100% { transform: translateY(18px); opacity: 0; }
+        }
+
+        .letter-content {
+            font-size: 0.96rem;
+            line-height: 1.8;
+            color: #f3e5f5;
+            text-align: left;
+            margin-top: 15px;
+            white-space: pre-line;
+            background: rgba(15, 6, 28, 0.6);
+            padding: 24px;
+            border-radius: 20px;
+            border-left: 4px solid #ab47bc;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #ea80fc;
+            margin-top: 20px;
+            text-align: right;
+            text-shadow: 0 0 10px rgba(234, 128, 252, 0.4);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.92); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sky Background: Moon & Twinkling Stars -->
+    <div class="sky-container" id="starField">
+        <div class="moon"></div>
+    </div>
+
+    <!-- Night Ocean Waves -->
+    <div class="ocean">
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+    </div>
+
+    <div class="wrapper">
+        
+        <!-- Purple Music Player Box -->
+        <div class="music-card" id="musicCard">
+            <div class="music-title">
+                <span>🎵</span> sorry mahal :(
+            </div>
+            
+            <audio id="apologySong" controls>
+                <source src="keep_me.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+
+            <!-- Animated Equalizer Bars -->
+            <div class="eq-container">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+            </div>
+        </div>
+
+        <!-- Initial Button to Open Letter -->
+        <div class="open-box" id="openBox">
+            <h2 style="color: #ea80fc; font-size: 1.5rem; margin-bottom: 12px; text-shadow: 0 0 10px rgba(234, 128, 252, 0.3);">I'm really sorry, baby...</h2>
+            <p style="color: #e1bee7; font-size: 0.92rem; line-height: 1.5;">I made this letter for you. click mo mahal.</p>
+            <button class="open-btn" onclick="openLetter()">Open mo baby</button>
+        </div>
+
+        <!-- Hidden Letter Container -->
+        <div class="letter-card" id="letterCard">
+            
+            <!-- Back Button -->
+            <div style="text-align: left;">
+                <button class="back-btn" onclick="closeLetter()">← Back</button>
+            </div>
+
+            <!-- Crying Brown Bear Vector Graphic -->
+            <div class="bear-container">
+                <svg viewBox="0 0 200 200" width="100%" height="100%">
+                    <!-- Ears (Brown) -->
+                    <circle cx="55" cy="55" r="28" fill="#795548"/>
+                    <circle cx="55" cy="55" r="16" fill="#a1887f"/>
+                    <circle cx="145" cy="55" r="28" fill="#795548"/>
+                    <circle cx="145" cy="55" r="16" fill="#a1887f"/>
+                    
+                    <!-- Head (Brown) -->
+                    <circle cx="100" cy="100" r="65" fill="#8d6e63"/>
+                    
+                    <!-- Muzzle -->
+                    <ellipse cx="100" cy="115" rx="25" ry="18" fill="#d7ccc8"/>
+                    <ellipse cx="100" cy="106" rx="10" ry="7" fill="#3e2723"/>
+                    <path d="M 100 113 Q 95 123 90 120 M 100 113 Q 105 123 110 120" stroke="#3e2723" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    
+                    <!-- Sad Eyes -->
+                    <path d="M 68 85 Q 78 78 88 88" stroke="#3e2723" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path d="M 132 85 Q 122 78 112 88" stroke="#3e2723" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    
+                    <!-- Blushing Cheeks -->
+                    <circle cx="68" cy="108" r="10" fill="#ff80ab" opacity="0.6"/>
+                    <circle cx="132" cy="108" r="10" fill="#ff80ab" opacity="0.6"/>
+                    
+                    <!-- Animated Tears -->
+                    <ellipse class="tear" cx="74" cy="98" rx="4" ry="7" fill="#40c4ff"/>
+                    <ellipse class="tear" cx="126" cy="98" rx="4" ry="7" fill="#40c4ff" style="animation-delay: 0.5s;"/>
+                </svg>
+            </div>
+
+            <!-- Letter Text -->
+            <div class="letter-content">
+Hi baby, pasensya na kung palagi akong sala at kung ang insensitive ko minsan, hindi ko po intention na saktan ikaw. Sorry kung masyado akong mangmang para palaging maperpekto ang galaw ko. Alam kong masamang boyfriend ako, pasensya na kasi wala akong control sa 'yo sa tuwing galit ka at harsh kana mag salita. Nag-aalala lang ako sa 'yo. Naghahanap pa 'ko ng ibang method o way para ma-fix natin 'yan sa tuwing galit ikaw, sala 'yung kanina kasi sinubukan ko ikaw sabayan at tapatan kasi nagbabakasakali akong baka babawan mo. Kaya natin 'to mahal. Hindi kita iiwan kahit ano pa ang sitwasyon natin, hahanap at hahanap ako ng way palagi para sa ikakabuti natin. Pasensya na mahal. I love you soo muchhh. Palagi mong tandaan na hindi na 'ko mawawala sa 'yo, gusto ko lang din na malaman mo na hindi sugal ang mahalin ako. I think alam ko na kung bakit nahihirapan ka kung bakit palagi mong iniisip na iiwan kita, na baka sakaling mag sawa ako sa 'yo, naiintindihan ko mahal kung bakit ikaw natatakot. Pero para makaraos ka d'yan ay kailangan mo umalis d'yan :) Inaabot kita at hinihila palabas d'yan, nandito na 'ko, hindi ako mawawala at habang buhay na 'kong na sa tabi mo, ang kailangan mo lang naman ay parehas tayong dumepende sa isa't isa :( Hindi ko naman ikaw pinipilit mahal, gusto ko lang na malaman mo na ligtas kana sa piling ko, mahal na mahal kita baby, i love you sooo much, sorry :( Mwaaaa.
+            </div>
+
+            <div class="signature">Sorry mahal :(</div>
+
+            <!-- Brown Bear Holding "SORRY" Sign Board at the End -->
+            <div class="bear-bottom-container">
+                <svg viewBox="0 0 200 180" width="100%" height="100%">
+                    <!-- Bear Body -->
+                    <ellipse cx="100" cy="140" rx="45" ry="35" fill="#8d6e63"/>
+                    
+                    <!-- Ears -->
+                    <circle cx="65" cy="55" r="20" fill="#795548"/>
+                    <circle cx="65" cy="55" r="11" fill="#a1887f"/>
+                    <circle cx="135" cy="55" r="20" fill="#795548"/>
+                    <circle cx="135" cy="55" r="11" fill="#a1887f"/>
+                    
+                    <!-- Head -->
+                    <circle cx="100" cy="85" r="48" fill="#8d6e63"/>
+                    
+                    <!-- Muzzle -->
+                    <ellipse cx="100" cy="97" rx="18" ry="14" fill="#d7ccc8"/>
+                    <ellipse cx="100" cy="91" rx="7" ry="5" fill="#3e2723"/>
+                    <path d="M 100 96 Q 96 103 92 101 M 100 96 Q 104 103 108 101" stroke="#3e2723" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                    
+                    <!-- Puppy Sad Eyes -->
+                    <circle cx="80" cy="78" r="5" fill="#3e2723"/>
+                    <circle cx="120" cy="78" r="5" fill="#3e2723"/>
+                    <circle cx="78" cy="76" r="1.8" fill="#ffffff"/>
+                    <circle cx="118" cy="76" r="1.8" fill="#ffffff"/>
+                    
+                    <!-- Blushing Cheeks -->
+                    <circle cx="72" cy="92" r="7" fill="#ff80ab" opacity="0.6"/>
+                    <circle cx="128" cy="92" r="7" fill="#ff80ab" opacity="0.6"/>
+                    
+                    <!-- Bear Paws holding Sign -->
+                    <circle cx="48" cy="122" r="12" fill="#795548"/>
+                    <circle cx="152" cy="122" r="12" fill="#795548"/>
+
+                    <!-- Sign Board -->
+                    <rect x="35" y="110" width="130" height="50" rx="10" fill="#fff9c4" stroke="#8d6e63" stroke-width="4"/>
+                    <text x="100" y="143" font-family="'Poppins', sans-serif" font-weight="600" font-size="22" fill="#d81b60" text-anchor="middle">SORRY :(</text>
+                </svg>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Dynamically create twinkling stars
+        const starField = document.getElementById('starField');
+        const starCount = 65;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 3 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.top = `${Math.random() * 70}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            star.style.animationDelay = `${Math.random() * 3}s`;
+            starField.appendChild(star);
+        }
+
+        // Open and Close Letter Controls
+        function openLetter() {
+            document.getElementById('openBox').style.display = 'none';
+            const letter = document.getElementById('letterCard');
+            letter.style.display = 'block';
+
+            const audio = document.getElementById('apologySong');
+            if (audio.src && audio.src !== "" && !audio.src.includes("YOUR_SONG_LINK_HERE")) {
+                audio.play().catch(() => {});
+            }
+        }
+
+        function closeLetter() {
+            document.getElementById('letterCard').style.display = 'none';
+            document.getElementById('openBox').style.display = 'block';
+        }
+
+        // Audio Player Visual Animation Listener
+        const audio = document.getElementById('apologySong');
+        const musicCard = document.getElementById('musicCard');
+
+        audio.addEventListener('play', () => {
+            musicCard.classList.add('music-playing');
+        });
+
+        audio.addEventListener('pause', () => {
+            musicCard.classList.remove('music-playing');
+        });
+
+        audio.addEventListener('ended', () => {
+            musicCard.classList.remove('music-playing');
+        });
+    </script>
+</body>
+</html>
